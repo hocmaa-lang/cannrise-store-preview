@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>[hidden]{display:none!important}body{margin:0}</style>
+<title>Cannrise Brand Store</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300&family=Inter:wght@400;600;700&family=Heebo:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: Hebrew planning brief (RTL) on Bone, then a live simulator of the Amazon Store built only from Store Builder shapes
+   (full-width tiles, or two halves: Large / 2×Medium / 4×Small / Medium+2×Small). Brand colours from the Cannrise design system v1.1. */
+:root{
+  --sand:#edc97e; --bone:#f8f3e6; --growth:#a5b83c; --canopy:#1b4332; --clay:#c97c4c; --ink:#26291f;
+  --muted:#5a5348; --line:#ddd2ba; --white:#ffffff; --amz:#131921; --amz2:#232f3e; --amztext:#0f1111;
+  --star:#de7921; --link:#007185; --prime:#1a98ff; --flag:#b4462b; --flagbg:#fbe9e2; --okbg:#eef3d6;
+  --disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --he:"Heebo","Segoe UI",Arial,sans-serif;
+  --amzfont:"Amazon Ember",Arial,"Helvetica Neue",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bone);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.5}
+img,video{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--canopy);outline-offset:2px}
+
+/* ---------- Hebrew brief ---------- */
+.brief{direction:rtl;font-family:var(--he);padding-block:28px 8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:22px}
+.mast{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.mast img{width:92px;height:auto}
+.mast h1{margin:0;font-family:var(--he);font-weight:800;font-size:clamp(26px,4vw,40px);line-height:1.1;color:var(--canopy);text-wrap:balance}
+.mast p{margin:6px 0 0;color:var(--muted);font-size:15px;max-width:70ch}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:2px;padding:16px 18px;min-width:0}
+.card h3{margin:0 0 6px;font-size:15px;font-weight:700;color:var(--canopy)}
+.card p,.card li{font-size:13.5px;margin:0}
+.card ul{margin:0;padding-inline-start:18px;display:grid;gap:4px}
+.card .f{font-size:12px;color:var(--muted);direction:ltr;text-align:right;font-family:var(--body)}
+h2.he{margin:6px 0 0;font-size:20px;font-weight:800;color:var(--canopy)}
+.tabs4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tab4{background:var(--canopy);color:var(--bone);padding:14px 16px;border-radius:2px;min-width:0}
+.tab4:nth-child(2){background:var(--sand);color:var(--ink)}.tab4:nth-child(3){background:var(--growth);color:var(--canopy)}.tab4:nth-child(4){background:var(--white);color:var(--ink);border:1px solid var(--line)}
+.tab4 b{display:block;font-family:var(--body);letter-spacing:.12em;font-size:11px;text-transform:uppercase;direction:ltr;text-align:right}
+.tab4 strong{display:block;font-size:17px;margin:2px 0 4px}
+.tab4 span{font-size:13px}
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 22px;margin:0;padding:0;list-style:none}
+.rules li{font-size:13.5px;padding-inline-start:18px;position:relative}
+.rules li::before{content:"";position:absolute;inset-inline-start:0;top:.55em;width:8px;height:8px;background:var(--growth)}
+.qs{display:grid;gap:8px}
+.q{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;background:var(--white);border:1px solid var(--line);padding:10px 14px;border-radius:2px}
+.q i{font-style:normal;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.q i.b{background:var(--flagbg);color:var(--flag)}.q i.m{background:var(--okbg);color:var(--canopy)}
+.q p{margin:0;font-size:13.5px}
+.q code{font-family:var(--body);font-size:12px;background:var(--bone);padding:0 4px}
+
+/* ---------- simulator controls ---------- */
+.ctl{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--canopy);color:var(--bone);padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));direction:rtl;font-family:var(--he)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--canopy)}
+.ctl .in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.ctl b{font-size:15px}
+.seg{display:inline-flex;border:1px solid rgba(248,243,230,.5);border-radius:2px;overflow:hidden}
+.seg button{all:unset;cursor:pointer;padding:6px 12px;font-size:13px;color:var(--bone)}
+.seg button[aria-pressed="true"]{background:var(--sand);color:var(--ink);font-weight:700}
+.seg button:focus-visible{outline:2px solid var(--sand);outline-offset:-2px}
+.ctl small{opacity:.8;font-size:12px}
+
+/* ---------- Amazon store simulator ---------- */
+.stage{padding-block:18px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.shell{max-width:1500px;margin:0 auto;background:var(--white);color:var(--amztext);font-family:var(--amzfont);container-type:inline-size;border:1px solid var(--line);transition:max-width .3s}
+.mobile .shell{max-width:420px}
+.amzbar{background:var(--amz);color:var(--white);display:flex;gap:14px;align-items:center;padding:9px 16px;font-size:12px}
+.amzbar b{font-size:18px;letter-spacing:-.02em}.amzbar .s{flex:1;min-width:0;height:30px;background:var(--white);border-radius:4px;display:flex;justify-content:flex-end;overflow:hidden}.amzbar .s i{width:42px;background:#febd69}
+.amzbar2{height:10px;background:var(--amz2)}
+.hero{aspect-ratio:5/1;overflow:hidden;background:var(--sand);position:relative}
+.hero img{width:100%;height:100%;object-fit:cover}
+.brandbar{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid #ddd}
+.logo{width:80px;height:80px;background:var(--white);border:1px solid #ddd;display:grid;place-items:center;padding:6px;margin-top:-36px;position:relative;z-index:2}
+.logo img{width:100%;height:auto}
+.brandbar b{font-size:16px}.brandbar .fo{border:1px solid #888;border-radius:999px;padding:3px 14px;font-size:12px}
+.nav{display:flex;gap:2px;padding:0 16px;border-bottom:1px solid #ddd;overflow-x:auto}
+.nav button{all:unset;cursor:pointer;font-size:13px;padding:12px 12px;border-bottom:3px solid transparent;white-space:nowrap;text-transform:uppercase;letter-spacing:.04em}
+.nav button[aria-current="true"]{border-color:var(--canopy);font-weight:700}
+.nav button:focus-visible{outline:2px solid var(--link)}
+.page{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding:14px 16px 30px}
+.sec2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.half{display:grid;gap:14px;aspect-ratio:1;min-width:0}
+.half.s4,.half.ms{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.half.m2{grid-template-rows:1fr 1fr}
+.half.ms>:first-child{grid-column:span 2}
+/* tiles */
+.t{all:unset;position:relative;overflow:hidden;display:block;min-width:0;min-height:0;background:var(--bg,var(--sand))}
+button.t{cursor:pointer}
+button.t:focus-visible{outline:3px solid var(--link);outline-offset:2px}
+.t>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.t:has(>img.pkr) .bk{right:52%}
+.t>img.pkr{object-fit:contain;left:50%;width:50%;padding:6%;mix-blend-mode:multiply}
+.t>img.pk{object-fit:contain;padding:8% 8% 26%;mix-blend-mode:multiply}
+button.t>img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+button.t:hover>img{transform:scale(1.035)}
+.fw{position:relative;overflow:hidden;background:var(--bg,var(--sand));display:block;width:100%}
+button.fw{all:unset;display:block;position:relative;overflow:hidden;background:var(--bg,var(--sand));cursor:pointer;width:100%}
+.fw>img{width:100%;height:100%;object-fit:cover;display:block}
+.grain{background-image:radial-gradient(rgba(248,243,230,.55) .9px,transparent 1.3px),radial-gradient(rgba(248,243,230,.4) .7px,transparent 1.1px);background-size:23px 19px,31px 27px;background-position:0 0,11px 7px}
+.scrim::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(18,48,31,.72));pointer-events:none}
+/* baked brand type (lives inside the image asset on Amazon) */
+.bk{position:absolute;z-index:2;display:grid;gap:clamp(4px,.8cqi,12px);color:var(--fg,var(--ink));font-family:var(--body);align-content:start}
+.bk .k{font-size:clamp(9px,.85cqi,13px);letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+.bk h2{margin:0;font-family:var(--disp);font-weight:500;font-size:clamp(24px,4cqi,64px);line-height:1.02;letter-spacing:-.01em;text-wrap:balance}
+.bk h3{margin:0;font-family:var(--disp);font-weight:500;font-size:clamp(18px,2.4cqi,38px);line-height:1.05;text-wrap:balance}
+.bk h4{margin:0;font-family:var(--disp);font-weight:500;font-size:clamp(14px,1.45cqi,22px);line-height:1.1}
+.bk em{font-family:var(--disp);font-style:italic;font-weight:300}
+.bk p{margin:0;font-size:clamp(12px,1.1cqi,17px);max-width:42ch;line-height:1.45}
+.bk .cta{justify-self:start;display:inline-block;font-size:clamp(10px,.9cqi,14px);font-weight:600;padding:.8em 1.4em;border-radius:2px;background:var(--ctab,var(--canopy));color:var(--ctaf,var(--bone));margin-top:4px}
+.bk.bl{left:6%;bottom:7%;right:8%;align-content:end}.bk.tl{left:7%;top:8%;right:8%}.bk.cl{left:8%;right:8%;top:50%;transform:translateY(-50%)}
+.bk.lab{left:7%;right:7%;bottom:6%;gap:2px;align-content:end}
+.hz{display:grid;gap:5px;width:min(62%,320px);margin-top:6px}.hz i{height:clamp(4px,.55cqi,9px);border-radius:9px;background:var(--hzc,var(--canopy))}
+.rays{position:absolute;z-index:1;pointer-events:none}
+.num{font-family:var(--disp);font-style:italic;font-weight:300;font-size:clamp(14px,1.6cqi,24px)}
+/* heading strip (full-width image tile, short) */
+.strip{padding:clamp(14px,2.2cqi,30px) 0 6px;display:flex;justify-content:space-between;align-items:end;gap:20px;border-bottom:1px solid var(--line)}
+.strip h2{margin:0;font-family:var(--disp);font-weight:500;font-size:clamp(24px,3.2cqi,48px);line-height:1.05;color:var(--canopy);text-wrap:balance}
+.strip h2 em{font-weight:300}
+.strip .k{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--muted);font-family:var(--body);white-space:nowrap}
+/* native text tile (Amazon font) */
+.tt{background:var(--bg,var(--white));padding:clamp(16px,2.2cqi,30px);font-family:var(--amzfont);color:var(--amztext);min-width:0}
+.tt h3{margin:0 0 8px;font-size:clamp(16px,1.5cqi,21px);font-weight:700}
+.tt p{margin:0 0 8px;max-width:85ch}
+.tt dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0}
+.tt dt{font-weight:700}.tt dd{margin:0}
+.tt.center{text-align:center}.tt.center p{margin-inline:auto}
+/* native product grid + product tile */
+.gh{font-size:18px;font-weight:700;margin:4px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.pc{display:grid;gap:4px;font-size:13px;align-content:start;min-width:0}
+.pc .im{aspect-ratio:1;background:#f7f7f7;display:grid;place-items:center}
+.pc .im img{width:90%;height:90%;object-fit:contain;mix-blend-mode:multiply}
+.pc .nm{line-height:1.3;max-height:3.9em;overflow:hidden}
+.rt{color:var(--star);font-size:12px}.rt span{color:var(--link)}
+.pr{font-size:18px}.pr sup{font-size:11px}
+.pm{font-size:11px;color:var(--prime);font-weight:700;font-style:italic}
+.ptile{display:grid;grid-template-rows:minmax(0,1fr) auto;background:var(--white);border:1px solid #eee;min-height:0}
+.ptile .im{background:#f7f7f7;display:grid;place-items:center;overflow:hidden;min-height:0}
+.ptile .im img{width:78%;height:78%;object-fit:contain;mix-blend-mode:multiply}
+.ptile .info{padding:8px 12px;font-size:12.5px;display:grid;gap:1px}
+.gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.gal img{aspect-ratio:2/1;width:100%;object-fit:cover}
+.gal img:nth-child(1),.gal img:nth-child(6){grid-column:span 2}
+.vid{position:absolute;inset:auto auto 4% 4%;z-index:3;background:rgba(18,48,31,.85);color:var(--bone);font-size:11px;padding:4px 10px;border-radius:20px;font-family:var(--body)}
+.ruler{display:grid;gap:3px;margin-top:4px}
+.ruler i{display:block;height:8px;background:var(--canopy);border-radius:8px}
+.ruler s{text-decoration:none;font-size:clamp(10px,.9cqi,13px);font-weight:600;letter-spacing:.06em}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:#565959;padding-top:14px;border-top:1px solid #ddd}
+/* build-spec annotations (Hebrew) */
+.blk{display:grid;gap:6px;min-width:0}
+.spec{display:none;direction:rtl;font-family:var(--he);font-size:12px;line-height:1.45;background:var(--canopy);color:var(--bone);padding:6px 10px;border-radius:2px}
+.spec b{font-family:var(--body);background:var(--sand);color:var(--ink);padding:0 6px;margin-inline-end:6px;border-radius:2px;letter-spacing:.04em}
+.spec .w{color:#ffd5c2}
+.showspec .spec{display:block}
+@container (max-width:760px){
+  .sec2{grid-template-columns:minmax(0,1fr)}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gal{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gal img:nth-child(n){grid-column:auto}
+  .logo{width:60px;height:60px;margin-top:-24px}
+  .bk h2{font-size:clamp(24px,8cqi,40px)}
+  .bk h3{font-size:clamp(18px,6cqi,30px)}
+  .bk h4{font-size:clamp(13px,4cqi,18px)}
+  .bk p{font-size:13px}
+  .strip{flex-direction:column;align-items:start;gap:4px}
+}
+@media (max-width:900px){.cols{grid-template-columns:minmax(0,1fr)}.tabs4{grid-template-columns:repeat(2,minmax(0,1fr))}.rules{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.tabs4{grid-template-columns:minmax(0,1fr)}.mast{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<section class="brief" aria-label="סיכום תכנון">
+ <div class="wrap">
+  <div class="mast"><img src="ph/logo_sun.png" alt="Cannrise"><div><h1>Brand Store לאמזון: Cannrise, ארבעה טאבים</h1><p>תכנון מלא שאפשר לבנות ב-Store Builder של אמזון: כל אזור בנוי מצורות שאמזון מאפשרת, כל טקסט נבדק מול ספר המותג ומול כללי התוכן של Stores, וכל תמונה היא צילום אמיתי של המותג. למטה יש סימולטור חי של החנות. כפתור "מפרט בנייה" מציג על כל אזור את הקוד, סוג האריח, המידות ומקור התמונה.</p></div></div>
+
+  <h2 class="he">קראתי את שלושת הקבצים</h2>
+  <div class="cols">
+   <div class="card"><h3>Identity &amp; Voice (v1.1, 29.10)</h3><ul><li>מוכרים את החוויה בגינה, והציוד מקיים את ההבטחה: "More dirt. Less screen."</li><li>ל-Brand Store מוגדר רגיסטר Grower (חם, קודם תוצאה ואחר כך מפרט), והתפקיד שלו הוא "Show the range and the standard behind it".</li><li>רשימת הטענות המותרות, המילים האסורות ו-"Thinking Green." כחתימה בלבד</li></ul><p class="f">cannrise-identity-and-voice.html</p></div>
+   <div class="card"><h3>Brand Book (v1)</h3><ul><li>ארבעת עמודי התווך: More dirt less screen · Grow together · Gear that respects your time · Grow it right A–Z</li><li>מודול האמזון של המותג: פאנל Sand עם טקסט לצד פאנל Canopy עם מספר גדול</li><li>הפרסונה שמובילה: The Devoted Gardener, אישה בגילאי 50–70</li></ul><p class="f">cannrise-brand-book.html</p></div>
+   <div class="card"><h3>Design System</h3><ul><li>פלטה ביחס קבוע: Sand 45 · Bone 15 · Growth 15 · Canopy 10 · Clay 10 · Ink 5</li><li>Fraunces לכותרות, Inter לגוף. אסור טקסט ב-Growth על Sand</li><li>מניפת קרניים (11 קרניים בהפרש 18°), אופק בשני פסים, גרעיניות. לוגו רק על Bone/Sand, וכל מוצר מוצג עם SizeTag</li></ul><p class="f">cannrise-design-system.html</p></div>
+  </div>
+
+  <h2 class="he">המבנה: HOME ועוד שלושה טאבים, טאב לכל קו מוצרים</h2>
+  <div class="tabs4">
+   <div class="tab4"><b>Home</b><strong>הבית: החיים קודם</strong><span>פותח באם ובת בחממה, אחריהן שלוש דלתות לשלושת המוצרים, ארבעת עמודי התווך, "Made by specialists" וגריד עם כל 16 המוצרים.</span></div>
+   <div class="tab4"><b>Plant Risers</b><strong>11 וריאציות, 70% מההכנסה</strong><span>בעיה ופתרון (מים עומדים), ואחר כך בחירה בין שתי צורות: מרובע 30×30 או ארוך 50×20. בסוף גריד מסודר לפי צבע וגודל.</span></div>
+   <div class="tab4"><b>Anchor Ties</b><strong>שלושה אורכים</strong><span>Loop · Hook · Done בארבעה צילומים אמיתיים, ואחריהם מדריך מידות עם סרגל. ההמרה של מארז ה-70 היא 16.7% מול 33% בשוק, כי הקונה לא מבין איזה גודל לבחור.</span></div>
+   <div class="tab4"><b>Coco Grow Bags</b><strong>"The bag is the pot."</strong><span>מי שמחפש coco coir מצפה ללבנה, ולכן ההמרה 5.4% מול 16.8%. הטאב מסביר שהשק הוא העציץ, בשלושה צעדים.</span></div>
+  </div>
+
+  <h2 class="he">כללי אמזון שהחלתי (ונבדקו בכל אזור)</h2>
+  <ul class="rules">
+   <li>Header 3000×600 בלי לוגו ובלי טקסט. לוגו 400×400 ומעלה על רקע לבן</li>
+   <li>רק צורות של Store Builder: רוחב מלא, או חצי Large 1500 / 2×Medium 1500×750 / 4×Small 750</li>
+   <li>Product Grid אחד לכל היותר בעמוד, עם 4 ASINs לפחות. לכן בקשרים ובקוקוס יש Product Tiles</li>
+   <li>בלי מחיר, "$", הנחה, "Sale", "#1", Best seller, כוכבים או ספירת ביקורות בתוך תמונות</li>
+   <li>בלי "!", בלי URL חיצוני ובלי הפניה ל-Shopify או לקופון</li>
+   <li>טקסט בתמונה: לפחות 32px באריחים ברוחב מלא ו-16px בשאר. הטקסט לא מכסה את המוצר</li>
+   <li>וידאו רקע: H.264, באורך 2–20 שניות, לפחות 1280×640, ביחס 6:4–8:3, מושתק. לכל היותר 4 בעמוד</li>
+   <li>לא יותר מ-20 אזורים בעמוד. בפועל: Home 11, Risers 10, Ties 10, Coco 9</li>
+   <li>בלי מספר עומס לרייזר, בלי משך חיים בשנים ובלי "REUSABLE" לקשרים (לפי רשימת הטענות האסורות של המותג)</li>
+   <li>ניסוח בלי "you/your" בגוף שלישי, כדי להישאר על הצד הבטוח במדיניות התוכן</li>
+  </ul>
+
+  <h2 class="he">צריך תשובה מהלקוח לפני ההקמה</h2>
+  <div class="qs">
+   <div class="q"><i class="b">חוסם</i><p><b>כמה השק מתנפח?</b> בספר המותג כתוב 4x ובסטוריבורד 10x. בינתיים החנות לא נוקבת במספר.</p></div>
+   <div class="q"><i class="b">חוסם</i><p><b>בכמה הרייזר מגביה?</b> בספר המותג כתוב "raise pots 3 cm", ובמפרט הארוך 2.4 in (כ-6 ס"מ). בינתיים מוצגות רק מידות הלוח, בלי טענת הגבהה.</p></div>
+   <div class="q"><i class="b">חוסם</i><p><b>איזה אורך קשר מתאים לאיזה גזע?</b> טקסטי ההתאמה במדריך המידות (גפנים / עגבניות / גבעולים דקים) הם הצעה שלי. צריך אישור מעידו לפני ההדפסה.</p></div>
+   <div class="q"><i class="b">חוסם</i><p><b>הסכמת צילום:</b> בצילומי הלייפסטייל יש ילדות, ובצילומי השדה מופיע מגדל. צריך אישור בכתב לשימוש באמזון, ולברר אם זה עידו ואם מותר לנקוב בשמו.</p></div>
+   <div class="q"><i class="m">חסר חומר</i><p><b>וידאו אמיתי:</b> קשירה בטלפון (5–8 שניות) לטאב הקשרים, ושק מתנפח במים לטאב הקוקוס. הוידאו שכבר הפקנו נוצר ב-AI, וספר המותג אוסר להציג תוצאה שנוצרה ב-AI כאילו היא אמיתית.</p></div>
+   <div class="q"><i class="m">חסר חומר</i><p><b>הפרסונה המובילה (אישה 50–70) לא מופיעה באף צילום.</b> מומלץ לעשות צילום קצר בגינה אמיתית ולהחליף בו את ה-Hero של Home כשהוא מוכן. גם צילומי השקים עם פלפלים/בזיליקום/פרחים קיימים רק ברוחב 464px, וצריך את המקור.</p></div>
+   <div class="q"><i class="m">ליסטינג</i><p>הווריאציה <code>Standard White</code> היא בפועל בצבע חול. בכותרת של B0FNX3TY9X (לבן, 10) מופיעות המידות של הרייזר הארוך <code>19.7x7.5x2.4</code>, והמחיר שלו $70.00 מול $49.99 בשחור. אף כותרת לא פותחת ב-"Cannrise". בכותרת הקוקוס כתוב "No Soaking", בזמן שספר המותג אומר "soak it all the way".</p></div>
+   <div class="q"><i class="m">החלטה</i><p>ספר המותג מתיר את המילה reusable, אבל רשימת הטענות האסורות של המותג אוסרת "REUSABLE" על הקשרים. בחנות השתמשתי ב-Weatherproof וב-"stretches as the stem grows".</p></div>
+  </div>
+ </div>
+</section>
+
+<div class="ctl" role="toolbar" aria-label="תצוגה">
+ <div class="in"><b>סימולטור החנות</b>
+  <span class="seg" aria-label="מכשיר"><button id="b-desk" aria-pressed="true">דסקטופ</button><button id="b-mob" aria-pressed="false">מובייל</button></span>
+  <span class="seg" aria-label="מפרט"><button id="b-view" aria-pressed="true">תצוגת לקוח</button><button id="b-spec" aria-pressed="false">מפרט בנייה</button></span>
+  <small>לחיצה על אריח עוברת לטאב שאליו הוא מקשר באמזון</small></div>
+</div>
+
+<div class="stage" id="stage">
+ <div class="shell">
+  <div class="amzbar"><b>amazon</b><div class="s"><i></i></div><span>Deliver to New York 10001</span></div>
+  <div class="amzbar2"></div>
+  <div class="hero" id="hero"></div>
+  <div class="brandbar"><div class="logo"><img src="ph/logo_sun.png" alt="Cannrise"></div><b>Cannrise</b><span class="fo">Follow</span></div>
+  <nav class="nav" id="nav" aria-label="Store navigation"></nav>
+  <main class="page" id="page"></main>
+ </div>
+</div>
+
+<script>
+const P={"B0CV1V1P26":["Square Plant Riser, Black, 5-Pack","39.99",4.6,"266"],"B0DZHRF7T8":["Square Plant Riser, Black, 7-Pack","44.99",4.6,"266"],"B0D98Q9Z1R":["Square Plant Riser, Black, 10-Pack","49.99",4.6,"266"],"B0DK483NGG":["Square Plant Riser, Black, 5-Pack + 50 Clips","39.99",4.6,"266"],"B0DK49NVNT":["Square Plant Riser, Black, 10-Pack + 100 Clips","49.99",4.6,"266"],"B0F6VBP1BF":["Long Modular Plant Riser, 19.7 in, 5-Pack","47.99",4.4,"41"],"B0F6V9N7CK":["Long Modular Plant Riser, 19.7 in, 7-Pack","54.99",4.4,"41"],"B0F6V9X74Z":["Long Modular Plant Riser, 19.7 in, 10-Pack","59.99",4.4,"41"],"B0FNX376D7":["Square Plant Riser, Sand, 5-Pack","39.99",4.6,"266"],"B0FNX2Z1HW":["Square Plant Riser, Sand, 7-Pack","44.99",4.6,"266"],"B0FNX3TY9X":["Square Plant Riser, Sand, 10-Pack","70.00",4.6,"266"],"B0F1V14XDF":["Anchor Plant Ties, 5 cm (1.96 in), 110-Pack","20.99",4.7,"102"],"B0F1V1ZZSD":["Anchor Plant Ties, 8 cm (3.14 in), 70-Pack","17.99",4.7,"102"],"B0F1V4JPRF":["Anchor Plant Ties, 12 cm (4.72 in), 33-Pack","15.99",4.7,"102"],"B0F7QTT5VV":["Coco Coir Grow Bags, 1 Gallon, 5-Pack","25.97",4.5,"37"],"B0F7R6G3KM":["Coco Coir Grow Bags, 2 Gallon, 5-Pack","33.97",4.5,"37"]};
+const RIS=["B0CV1V1P26","B0DZHRF7T8","B0D98Q9Z1R","B0FNX376D7","B0FNX2Z1HW","B0FNX3TY9X","B0F6VBP1BF","B0F6V9N7CK","B0F6V9X74Z","B0DK483NGG","B0DK49NVNT"];
+const TIE=["B0F1V4JPRF","B0F1V1ZZSD","B0F1V14XDF"], COCO=["B0F7QTT5VV","B0F7R6G3KM"];
+const PH=n=>`ph/${n}.jpg`, IM=a=>`img/${a}.jpg`;
+const C={sand:"var(--sand)",bone:"var(--bone)",growth:"var(--growth)",canopy:"var(--canopy)",ink:"var(--ink)",white:"var(--white)"};
+
+/* brand motifs, drawn from the logo: 11 tapered rays 18° apart over a half-sun, and the two-bar horizon */
+function rays(ray,sun,style){let s="";for(let i=0;i<11;i++){const a=Math.PI-i*Math.PI/10,c=Math.cos(a),n=Math.sin(a),px=-n,py=c;
+ const r1=128,r2=232,w1=9,w2=19,X=v=>(200+v).toFixed(1),Y=v=>(240-v).toFixed(1);
+ s+=`<polygon points="${X(c*r1+px*w1)},${Y(n*r1+py*w1)} ${X(c*r2+px*w2)},${Y(n*r2+py*w2)} ${X(c*r2-px*w2)},${Y(n*r2-py*w2)} ${X(c*r1-px*w1)},${Y(n*r1-py*w1)}" fill="${ray}" stroke="${ray}" stroke-width="7" stroke-linejoin="round"/>`}
+ return `<svg class="rays" viewBox="0 0 400 240" style="${style}" aria-hidden="true">${s}<path d="M95 240a105 105 0 0 1 210 0z" fill="${sun}"/></svg>`}
+const HZ=c=>`<span class="hz" style="--hzc:${c}"><i></i><i></i></span>`;
+
+/* section wrapper: every block carries its build spec */
+const B=(code,spec,html)=>`<div class="blk"><div class="spec"><b>${code}</b>${spec}</div>${html}</div>`;
+const SEC=(a,b)=>`<section class="sec2">${a}${b}</section>`;
+const L=t=>`<div class="half">${t}</div>`;
+const S4=(a,b,c,d)=>`<div class="half s4">${a}${b}${c}${d}</div>`;
+const M2=(a,b)=>`<div class="half m2">${a}${b}</div>`;
+const MS=(m,s1,s2)=>`<div class="half ms">${m}${s1}${s2}</div>`;
+const T=(img,{go,bg,txt,pos="bl",fg,scrim,grain,pk,extra=""}={})=>`<${go?`button data-go="${go}"`:"div"} class="t${scrim?" scrim":""}${grain?" grain":""}" style="${bg?`--bg:${bg};`:""}">${img?`<img src="${img}" alt="" class="${pk==="r"?"pkr":pk?"pk":""}" loading="lazy">`:""}${extra}${txt?`<div class="bk ${pos}" style="${fg?`--fg:${fg};`:""}">${txt}</div>`:""}</${go?"button":"div"}>`;
+const FW=(inner,{bg,ratio,go,cls=""}={})=>`<${go?`button data-go="${go}"`:"div"} class="fw ${cls}" style="${bg?`--bg:${bg};`:""}${ratio?`aspect-ratio:${ratio};`:""}">${inner}</${go?"button":"div"}>`;
+const STRIP=(h,k)=>`<div class="strip"><h2>${h}</h2>${k?`<span class="k">${k}</span>`:""}</div>`;
+const TT=(inner,{bg,center}={})=>`<div class="tt${center?" center":""}" style="${bg?`--bg:${bg}`:""}">${inner}</div>`;
+const stars=r=>{const f=Math.round(r*2)/2;let s="";for(let i=1;i<=5;i++)s+=i<=f?"★":(i-.5===f?"⯪":"☆");return s};
+const money=p=>{const[d,c]=p.split(".");return `<sup>$</sup>${d}<sup>${c}</sup>`};
+const pc=a=>{const p=P[a];return `<div class="pc"><div class="im"><img src="${IM(a)}" alt="${p[0]}" loading="lazy"></div><div class="nm">Cannrise ${p[0]}</div><div class="rt">${stars(p[2])} <span>${p[3]}</span></div><div class="pr">${money(p[1])}</div><div class="pm">✓prime</div></div>`};
+const GRID=(l,title)=>`<section id="grid"><div class="gh">${title}</div><div class="grid">${l.map(pc).join("")}</div></section>`;
+const PT=a=>{const p=P[a];return `<div class="ptile"><div class="im"><img src="${IM(a)}" alt="${p[0]}" loading="lazy"></div><div class="info"><b>Cannrise ${p[0]}</b><span class="rt">${stars(p[2])} <span>${p[3]}</span></span><span class="pr" style="font-size:16px">${money(p[1])} <span class="pm">✓prime</span></span></div></div>`};
+const GAL=l=>`<section class="gal">${l.map(n=>`<img src="${PH(n)}" alt="" loading="lazy">`).join("")}</section>`;
+const FOOT=()=>`<div class="foot"><span>Cannrise</span><span>Share</span></div>`;
+const VID=t=>`<span class="vid">▶ ${t}</span>`;
+const textTile=(bg,fg,inner,go,{grain,rayset}={})=>T(null,{go,bg,fg,grain,txt:inner,pos:"cl",extra:rayset||""});
+const signoff=()=>FW(`${rays("var(--growth)","var(--sand)","right:-2%;bottom:-6%;width:30%;")}<div class="bk cl" style="--fg:var(--bone);max-width:60%"><h2><em>Thinking Green.</em></h2>${HZ("var(--sand)")}</div>`,{bg:C.canopy,ratio:"6/1",cls:"grain"});
+const cross=(a,b)=>{const m={risers:[PH("spacer_growbag_on_panel"),"Plant Risers","Lift the pots. Let roots breathe."],ties:[PH("BAND_DEFINITIVE_finished_tie"),"Anchor Plant Ties","Stretches as the stem grows."],coco:[PH("coco_bag_hero"),"Coco Grow Bags","The bag is the pot."]};
+ const tile=k=>T(m[k][0],{go:k,scrim:true,fg:"var(--bone)",txt:`<span class="k">${m[k][1]}</span><h3>${m[k][2]}</h3>`});return SEC(L(tile(a)),L(tile(b)))};
+
+/* ---------------- pages ---------------- */
+const R={};
+R.home=()=>[
+ B("H01","רוחב מלא · תמונה עם טקסט אפוי · 3000×1500 (מובייל 1680×1680) · מקור: <i>_EN_9367</i> אם ובת בחממה, רייזרים מתחת לעציצים · רגיסטר Grower · עמוד תווך More dirt, less screen",
+  FW(`<img src="${PH("l9367")}" alt="" style="position:absolute;inset:0;width:62%;height:100%;object-fit:cover">${rays("var(--growth)","var(--canopy)","right:-4%;bottom:-8%;width:34%;opacity:.95")}<div class="bk" style="left:64%;right:4%;top:12%;--fg:var(--canopy)"><span class="k">Thinking Green</span><h2>More dirt.<br>Less screen.</h2><p style="color:var(--ink)">Pro-grade gear for the hours in the garden. Built for seasons, not summers.</p><span class="cta">Shop the gear</span></div>`,{bg:C.sand,ratio:"2/1",go:"#grid"})),
+ B("H02","אריח טקסט מקורי של אמזון (Amazon Ember), עד 500 תווים · טקסט Brand story המאושר, מקוצר כפי שספר המותג מתיר",
+  TT(`<h3>Rooted in real-world growing.</h3><p>Every Cannrise product is developed with specialists who have spent decades mastering a single craft, from the vineyards and orchards of Europe to the working farms of North America. We bring their know-how home, so the gear is built to the same standard professionals rely on every season.</p>`,{center:true,bg:"var(--bone)"})),
+ B("H03","רצועת כותרת · רוחב מלא 3000×300 · Fraunces Canopy על לבן",STRIP("Three tools. <em>Every season.</em>","Shop by product")),
+ B("H04","חצי: Large 1500×1500 (רייזרים, מקור <i>_EN_9645</i>) · חצי: 2×Medium 1500×750 (קשרים <i>BAND_DEFINITIVE</i>, קוקוס <i>coco_bags_wall</i>) · כל אריח מקשר לטאב שלו",
+  SEC(L(T(PH("l9645"),{go:"risers",scrim:true,fg:"var(--bone)",txt:`<span class="k">Plant Risers</span><h2>Lift the pots.<br><em>Let roots breathe.</em></h2><span class="cta" style="--ctab:var(--sand);--ctaf:var(--ink)">Shop risers</span>`})),
+      M2(T(PH("BAND_DEFINITIVE_finished_tie"),{go:"ties",scrim:true,fg:"var(--bone)",txt:`<span class="k">Anchor Plant Ties · Made in Spain</span><h3>Stretches as the stem grows.</h3>`}),
+         T(PH("coco_bags_wall"),{go:"coco",scrim:true,fg:"var(--bone)",txt:`<span class="k">Coco Coir Grow Bags</span><h3>The bag is the pot.</h3>`})))),
+ B("H05","חצי: Large 1500×1500 צילום <i>_EN_9417</i> (Grow together) · חצי: 4×Small 750×750 כרטיסי עמודי התווך בצבעים שמערכת העיצוב קובעת: Canopy / Sand / Growth / Bone · No. 01–04 ב-Fraunces Light Italic",
+  SEC(L(T(PH("l9299"),{scrim:true,fg:"var(--bone)",txt:`<span class="k">Grow together</span><h3>A harvest to share.</h3>`})),
+   S4(T(null,{bg:C.canopy,grain:true,fg:"var(--bone)",txt:`<span class="num" style="color:var(--sand)">No. 01</span><h4>More dirt,<br>less screen.</h4>`,pos:"lab"}),
+      T(null,{bg:C.sand,fg:"var(--ink)",txt:`<span class="num">No. 02</span><h4>Grow together.</h4>`,pos:"lab"}),
+      T(null,{bg:C.growth,fg:"var(--canopy)",txt:`<span class="num">No. 03</span><h4>Gear that respects the time.</h4>`,pos:"lab"}),
+      T(null,{bg:C.bone,fg:"var(--canopy)",txt:`<span class="num">No. 04</span><h4>Grow it right, A–Z.</h4>`,pos:"lab"})))),
+ B("H06","חצי: Large 1500×1500 פאנל Sand עם טקסט · חצי: Large 1500×1500 פאנל Canopy עם 3 עובדות (התבנית של מודול האמזון בספר המותג) · <span class='w'>בלי כוכבים ובלי ספירת ביקורות בתמונה: מדיניות Stores</span>",
+  SEC(L(textTile(C.sand,"var(--canopy)",`<span class="k">Made by specialists</span><h2>Pro-grade,<br><em>brought home.</em></h2><p style="color:var(--ink)">Each line comes from a maker who does one thing. The ties from Spain. The coir from coconut husk. The risers from UV-stabilized polypropylene.</p>${HZ("var(--canopy)")}`)),
+      L(textTile(C.canopy,"var(--bone)",`<div style="display:grid;gap:clamp(10px,2cqi,26px)"><div><h2 style="color:var(--sand)">Spain</h2><p>Where the anchor ties are made.</p></div><div><h2 style="color:var(--sand)">0% peat</h2><p>100% coco coir in every grow bag.</p></div><div><h2 style="color:var(--sand)">UV</h2><p>Stabilized for full sun, outdoors.</p></div></div>`,null,{grain:true})))),
+ B("H07","וידאו רקע · 2160×1080, 6–8 שניות, H.264 מושתק · <span class='w'>חסר: צילום אמיתי של קשירה/השקיה בגינה, לא AI</span> · כותרת ב-Video-Caption-Banner מעל הוידאו, לא צרובה בתוכו",
+  FW(`<img src="${PH("l9694")}" alt="">${VID("Background video · real garden footage")}`,{ratio:"2/1"})),
+ B("H08","Product Grid · כל 16 ה-ASINs · מחיר ודירוג מוצגים אוטומטית על ידי אמזון · סדר: רייזרים (לפי מכירות) ← קשרים ← קוקוס",
+  GRID([...RIS.slice(0,3),"B0F6VBP1BF","B0F1V1ZZSD","B0F1V14XDF","B0F1V4JPRF","B0F7QTT5VV","B0F7R6G3KM",...RIS.slice(3,6),"B0F6V9N7CK","B0F6V9X74Z","B0DK483NGG","B0DK49NVNT"],"All Cannrise gear")),
+ B("H09","רצועת כותרת 3000×300",STRIP("An hour out here <em>and the week feels lighter.</em>")),
+ B("H10","Gallery · 6 תמונות ב-3000×1500 · מקור: צילום הלייפסטייל של המותג",GAL(["l9790","l9331","l9490","l9835","l0132","l9367"])),
+ B("H11","רוחב מלא 3000×500 · חתימה: Canopy עם גרעיניות, מניפה ב-Growth, Thinking Green ב-Fraunces Light Italic",signoff()),
+ FOOT()].join("");
+
+R.risers=()=>[
+ B("R01","רוחב מלא 3000×1500 · מקור <i>_EN_9417</i>, חממה עם עציצים על רייזרים · Grower · <span class='w'>בלי מספר עומס ובלי שנות חיים</span>",
+  FW(`<img src="${PH("l9417")}" alt=""><div class="bk bl" style="--fg:var(--bone)"><span class="k">Plant Risers</span><h2>Lift the pots.<br><em>Let roots breathe.</em></h2><p>Water drains, air moves, roots stay healthy.</p><span class="cta" style="--ctab:var(--sand);--ctaf:var(--ink)">Shop risers</span></div>`,{ratio:"2.2/1",cls:"scrim",go:"#grid"})),
+ B("R02","חצי: Large 1500×1500 תמונת הבעיה <i>_EN_9163</i> (צלוחית עם כתם מים) · חצי: Large 1500×1500 הפתרון <i>_EN_0164</i> (שוטפים את הרצפה, העציצים מוגבהים) · רגיסטר Backyard, ואחריו Grower",
+  SEC(L(T(PH("l9163"),{scrim:true,fg:"var(--bone)",txt:`<span class="k">The problem</span><h3>Most container plants don't die of thirst. <em>They drown.</em></h3>`})),
+      L(T(PH("l0164"),{scrim:true,fg:"var(--bone)",txt:`<span class="k">The fix</span><h3>Lifted off the floor. Drained. <em>The deck stays clean.</em></h3>`})))),
+ B("R03","רצועת כותרת 3000×300",STRIP("Two shapes. <em>Pick the one that fits.</em>","Square or long")),
+ B("R04","חצי: Large 1500×1500 כרטיס Sand עם תמונת המוצר (Square) · חצי: Large 1500×1500 כרטיס Bone (Long) · SizeTag עם סרגל יחסי · מקשר לאזור הגריד",
+  SEC(L(T(IM("B0CV1V1P26"),{go:"#grid",bg:C.sand,pk:true,fg:"var(--canopy)",pos:"lab",txt:`<span class="k">Square riser · Black or Sand</span><h3>30 × 30 cm <em>(11.8 in)</em></h3><span class="ruler"><i style="width:60%"></i><s>Fits one pot or grow bag · packs of 5, 7, 10</s></span>`})),
+      L(T(IM("B0F6VBP1BF"),{go:"#grid",bg:C.bone,pk:true,fg:"var(--canopy)",pos:"lab",txt:`<span class="k">Long modular riser · Black</span><h3>50 × 20 cm <em>(19.7 × 7.5 in)</em></h3><span class="ruler"><i style="width:100%"></i><s>Snaps end to end for a row of planters · 5, 7, 10</s></span>`})))),
+ B("R05","אריח טקסט מקורי · רגיסטר Field (מפרט) · <span class='w'>Made in Mexico מופיע בסטוריבורד בלבד ולא ברשימת הטענות של ספר המותג, לכן הושמט</span>",
+  TT(`<h3>Specs</h3><dl><dt>Material</dt><dd>UV-stabilized polypropylene</dd><dt>Square riser</dt><dd>30 × 30 cm (11.8 × 11.8 in), Black or Sand</dd><dt>Long riser</dt><dd>50 × 20 × 6 cm (19.7 × 7.5 × 2.4 in), snap-lock ends, no tools</dd><dt>Use</dt><dd>Grow bags, nursery pots, planters and window boxes, indoors or out</dd></dl>`,{bg:"var(--bone)"})),
+ B("R06","חצי: Large 1500×1500 צילום <i>_EN_9490</i> (עגבניות בחממה) · חצי: 4×Small 750×750 צילומי לייפסטייל אמיתיים",
+  SEC(L(T(PH("l9490"),{scrim:true,fg:"var(--bone)",txt:`<span class="k">Built for the vineyard</span><h3>Sized for the balcony.</h3>`})),
+      S4(T(PH("l9331")),T(PH("l9656")),T(PH("spacer_snap_detail"),{scrim:true,fg:"var(--bone)",txt:`<h4>Snap. Link. Done.</h4>`,pos:"lab"}),T(PH("l9876"))))),
+ B("R07","חצי: Large 1500×1500 תמונת הסט על לבן · חצי: Large 1500×1500 טקסט Sand · <span class='w'>במארז 10+100 היו 96 קליקים ו-0 רכישות ב-Q2: האריח מסביר מה יש בקופסה</span>",
+  SEC(L(T(IM("B0DK483NGG"),{bg:C.white,pk:true})),
+      L(textTile(C.sand,"var(--canopy)",`<span class="k">Riser + stem clips</span><h2>Lift the pot.<br><em>Train the stem.</em></h2><p style="color:var(--ink)">Square risers with round trellis clips in one box: 5 risers with 50 clips, or 10 risers with 100 clips.</p><span class="cta">See the sets</span>`,"#grid")))),
+ B("R08","Product Grid · 11 ASINs · סדר: שחור 5/7/10, חול 5/7/10, ארוך 5/7/10, סטים עם קליפסים",GRID(RIS,"Shop plant risers")),
+ B("R09","Cross-sell · 2×Large 1500×1500 · מקשר לטאבים האחרים",cross("coco","ties")),
+ B("R10","חתימה 3000×500",signoff()),FOOT()].join("");
+
+R.ties=()=>[
+ B("T01","רוחב מלא 3000×1500 · Canopy עם גרעיניות ותמונת מקרו <i>BAND_DEFINITIVE</i> (קשר אמיתי על ענף) · Grower · <span class='w'>בלי REUSABLE ובלי שנות חיים</span>",
+  FW(`<img src="${PH("BAND_DEFINITIVE_finished_tie")}" alt="" style="position:absolute;right:0;top:0;width:52%;height:100%;object-fit:cover"><div class="bk cl" style="--fg:var(--bone);right:56%"><span class="k" style="color:var(--sand)">Anchor Plant Ties · Made in Spain</span><h2>Stretches as<br><em>the stem grows.</em></h2><p>Natural rubber with a double-hook anchor head. Tie once and leave it for the season.</p>${HZ("var(--sand)")}</div>`,{bg:C.canopy,ratio:"2.2/1",cls:"grain",go:"#size"})),
+ B("T02","חצי: Large 1500×1500 טקסט Sand (משפט ה-Backyard מספר המותג) · חצי: Large 1500×1500 צילום <i>BAND_hands_locking</i>",
+  SEC(L(textTile(C.sand,"var(--canopy)",`<span class="k">Why rubber</span><h2>Zip ties: fine for cables.<br><em>Terrible for tomatoes.</em></h2><p style="color:var(--ink)">Plastic ties cut in as the stem thickens. These stretch with it, so the bark is never scored.</p>`,null,{rayset:rays("var(--growth)","var(--canopy)","right:-6%;bottom:-6%;width:46%")})),
+      L(T(PH("BAND_hands_locking"))))),
+ B("T03","רצועת כותרת 3000×300",STRIP("Loop. Hook. <em>Done.</em>","About three seconds a tie")),
+ B("T04","חצי: 4×Small 750×750 פריימים אמיתיים מסרטון הלקוח (process_01–04, ללא הפסים השחורים) · חצי: Large 1500×1500 טקסט Bone · מספור 01–04 כי זה רצף אמיתי",
+  SEC(S4(...[["proc1","01 Wrap"],["proc2","02 Hook"],["proc3","03 Pull to lock"],["proc4","04 Done"]].map(([i,t])=>T(PH(i),{scrim:true,fg:"var(--bone)",txt:`<h4>${t}</h4>`,pos:"lab"}))),
+      L(textTile(C.bone,"var(--canopy)",`<span class="k">How to tie</span><h2>No tools.<br><em>No knots.</em></h2><p style="color:var(--ink)">01 Wrap the band around the stem and the stake.<br>02 Hook the loop over the anchor head.<br>03 Pull to lock. Nothing dangles.</p>${HZ("var(--canopy)")}`)))),
+ B("T05","וידאו רקע 2160×1080, 6 שניות · <span class='w'>חסר: מקור הטלפון של הקשירה (הפריימים ב-T04 נלקחו ממנו). לא להשתמש בוידאו ה-AI</span>",
+  FW(`<img src="${PH("BAND_hands_wrapping")}" alt="" style="object-position:center 45%">${VID("Background video · real tie going on, phone footage")}`,{ratio:"2/1"})),
+ B("T06","רצועת כותרת · עוגן <i>#size</i>",`<div id="size">${STRIP("Three lengths. <em>Pick by stem.</em>","Size guide")}</div>`),
+ B("T07","חצי: Large (12 ס\"מ) · חצי: 2×Medium (8 ס\"מ, 5 ס\"מ) · SizeTag עם סרגל יחסי (12=100) · כל אריח מקשר ל-ASIN שלו · <span class='w'>טקסטי ההתאמה ממתינים לאישור עידו</span>",
+  SEC(L(T(IM("B0F1V4JPRF"),{go:"#tiles",bg:C.sand,pk:true,fg:"var(--canopy)",pos:"lab",txt:`<span class="k">33-Pack</span><h3>12 cm <em>(4.72 in)</em></h3><span class="ruler"><i style="width:100%"></i><s>Vines, canes and thicker stakes</s></span>`})),
+      M2(T(IM("B0F1V1ZZSD"),{go:"#tiles",bg:C.bone,pk:"r",fg:"var(--canopy)",pos:"lab",txt:`<span class="k">70-Pack</span><h4>8 cm (3.14 in)</h4><span class="ruler"><i style="width:67%"></i><s>Tomatoes, roses, climbers</s></span>`}),
+         T(IM("B0F1V14XDF"),{go:"#tiles",bg:C.bone,pk:"r",fg:"var(--canopy)",pos:"lab",txt:`<span class="k">110-Pack</span><h4>5 cm (1.96 in)</h4><span class="ruler"><i style="width:42%"></i><s>Thin stems, young plants</s></span>`})))),
+ B("T08","חצי: Large 1500×1500 צילום מגדל עם קשרים <i>ido_ties</i> (חתוך בלי פס הלוגו) · חצי: Large טקסט Canopy · <span class='w'>אישור שימוש בדמות ושם נדרש</span>",
+  SEC(L(T(PH("ido_ties"))),L(textTile(C.canopy,"var(--bone)",`<span class="k" style="color:var(--sand)">From the field</span><h2>Made in Spain,<br><em>by rubber specialists.</em></h2><p>UV-protected, weatherproof rubber, the same tie used on commercial vine rows, in packs sized for a home garden.</p>`,null,{grain:true})))),
+ B("T09","Product Tiles (פחות מ-4 ASINs, לכן לא Grid): Large + 2×Medium · עוגן <i>#tiles</i>",`<div id="tiles">${SEC(L(PT("B0F1V4JPRF")),M2(PT("B0F1V1ZZSD"),PT("B0F1V14XDF")))}</div>`),
+ B("T10","Cross-sell 2×Large",cross("risers","coco")),
+ B("T11","חתימה 3000×500",signoff()),FOOT()].join("");
+
+R.coco=()=>[
+ B("C01","רוחב מלא 3000×1500 · צילום <i>coco_bag_hero</i> (שק אמיתי עם פרחים) משמאל, פאנל Sand מימין · Grower",
+  FW(`<img src="${PH("coco_bag_hero")}" alt="" style="position:absolute;left:0;top:0;width:42%;height:100%;object-fit:cover">${rays("var(--growth)","var(--canopy)","right:-3%;bottom:-8%;width:30%")}<div class="bk cl" style="left:47%;--fg:var(--canopy)"><span class="k">Coco Coir Grow Bags · peat-free</span><h2>The bag<br><em>is the pot.</em></h2><p style="color:var(--ink)">Pre-filled with compressed 100% coco coir. Open. Hydrate. Plant.</p><span class="cta">Shop grow bags</span></div>`,{bg:C.sand,ratio:"2.2/1",go:"#tiles"})),
+ B("C02","חצי: Large טקסט Canopy (ניסוח Backyard) · חצי: Large צילום <i>listing_06</i> חתוך (מגדל מחזיק 5 שקים) · <span class='w'>בלי מספר התנפחות (4x או 10x) עד אישור הלקוח</span>",
+  SEC(L(textTile(C.canopy,"var(--bone)",`<span class="k" style="color:var(--sand)">No soil bag to haul</span><h2>Add water.<br><em>That's the whole setup.</em></h2><p>The coir comes compressed in the bag. Water it and it expands to fill the bag, ready to plant.</p>`,null,{grain:true})),
+      L(T(PH("cman"))))),
+ B("C03","רצועת כותרת 3000×300",STRIP("Open. Hydrate. <em>Plant.</em>","Three steps")),
+ B("C04","חצי: 4×Small 750×750 שלבים מצולמים (מתוך A+ של הלקוח, חתוכים בלי טקסט) ואריח טקסט · חצי: Large <i>coco_bags_wall</i>",
+  SEC(S4(T(PH("cstep1"),{scrim:true,fg:"var(--bone)",txt:`<h4>01 Water the bag</h4>`,pos:"lab"}),T(PH("cstep2"),{scrim:true,fg:"var(--bone)",txt:`<h4>02 Let it expand</h4>`,pos:"lab"}),T(PH("cstep3"),{scrim:true,fg:"var(--bone)",txt:`<h4>03 Plant and grow</h4>`,pos:"lab"}),T(null,{bg:C.growth,fg:"var(--canopy)",txt:`<span class="num">Tip</span><h4>Soak it all the way through.</h4>`,pos:"lab"})),
+      L(T(PH("coco_bags_wall"),{scrim:true,fg:"var(--bone)",txt:`<span class="k">On a riser</span><h3>Drains clean. <em>Moves easily.</em></h3>`})))),
+ B("C05","אריח טקסט מקורי · רגיסטר Field · רק טענות מותרות: 100% coco coir, peat-free",
+  TT(`<h3>What's in the box</h3><dl><dt>Fill</dt><dd>Compressed 100% coco coir, peat-free</dd><dt>Bag</dt><dd>Open-top, pre-cut drainage holes, UV-resistant</dd><dt>Sizes</dt><dd>1 gallon or 2 gallon, 5 bags per box</dd><dt>Grows</dt><dd>Herbs, vegetables, flowers and ornamentals, indoors or out</dd></dl>`,{bg:"var(--bone)"})),
+ B("C06","חצי: 4×Small (פלפלים / בזיליקום / פרחים, ואריח Sand) · חצי: Large צילום <i>listing_03</i> חתוך (מגדל וילדה): Grow together · <span class='w'>צילומי הצמחים קיימים רק ב-464px, צריך מקור</span>",
+  SEC(S4(T(PH("cpep"),{scrim:true,fg:"var(--bone)",txt:`<h4>Peppers</h4>`,pos:"lab"}),T(PH("cbasil"),{scrim:true,fg:"var(--bone)",txt:`<h4>Herbs</h4>`,pos:"lab"}),T(PH("cflow"),{scrim:true,fg:"var(--bone)",txt:`<h4>Flowers</h4>`,pos:"lab"}),T(null,{bg:C.sand,fg:"var(--canopy)",txt:`<h4>One bag, <em>one plant.</em></h4>`,pos:"lab"})),
+      L(T(PH("cido"),{scrim:true,fg:"var(--bone)",txt:`<span class="k">Grow together</span><h3>Sow it together. <em>Watch it come up.</em></h3>`})))),
+ B("C07","Product Tiles · 2×Large · עוגן <i>#tiles</i>",`<div id="tiles">${SEC(L(PT("B0F7QTT5VV")),L(PT("B0F7R6G3KM")))}</div>`),
+ B("C08","Cross-sell 2×Large",cross("risers","ties")),
+ B("C09","חתימה 3000×500",signoff()),FOOT()].join("");
+
+/* ---------------- chrome & routing ---------------- */
+const NAV=[["home","Home"],["risers","Plant Risers"],["ties","Anchor Plant Ties"],["coco","Coco Grow Bags"]];
+const HDR={home:["l9790","center 62%"],risers:["l9417","center 70%"],ties:["BAND_finished_in_context","center 45%"],coco:["coco_bags_wall","center 55%"]};
+const HSPEC={home:"Header 3000×600 · <i>_EN_9790</i> מרפסת עם שקים על רייזרים, בלי לוגו ובלי טקסט · אמזון עלולה לחתוך עד 15% מכל צד, לכן הנושא במרכז",risers:"Header 3000×600 · <i>_EN_9417</i> שורת עציצים על רייזרים בחממה",ties:"Header 3000×600 · <i>BAND_finished_in_context</i> · <span class='w'>המקור ברוחב 1300px, צריך את הקובץ המלא או צילום רחב חדש</span>",coco:"Header 3000×600 · <i>coco_bags_wall</i> שקים על רייזר"};
+let cur="home";
+function go(id){
+ if(id[0]==="#"){const g=document.querySelector(id);if(g)g.scrollIntoView({behavior:"smooth",block:"start"});return}
+ if(!R[id])return;cur=id;
+ const[h,pos]=HDR[id];
+ document.getElementById("hero").innerHTML=`<img src="${PH(h)}" alt="" style="object-position:${pos}">`;
+ document.getElementById("nav").innerHTML=NAV.map(([k,l])=>`<button data-go="${k}" aria-current="${k===cur}">${l}</button>`).join("");
+ const pg=document.getElementById("page");
+ pg.innerHTML=B({home:"H00",risers:"R00",ties:"T00",coco:"C00"}[id],HSPEC[id]+` · טאב בניווט: "${NAV.find(n=>n[0]===id)[1]}"`,"")+R[id]();
+ const t=document.getElementById("stage").getBoundingClientRect().top+scrollY-60;
+ if(scrollY>t)window.scrollTo({top:t,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})}
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();go(g.dataset.go)}});
+const tog=(on,off,fn)=>{document.getElementById(on).setAttribute("aria-pressed","true");document.getElementById(off).setAttribute("aria-pressed","false");fn()};
+const st=document.getElementById("stage");
+document.getElementById("b-desk").onclick=()=>tog("b-desk","b-mob",()=>st.classList.remove("mobile"));
+document.getElementById("b-mob").onclick=()=>tog("b-mob","b-desk",()=>st.classList.add("mobile"));
+document.getElementById("b-view").onclick=()=>tog("b-view","b-spec",()=>st.classList.remove("showspec"));
+document.getElementById("b-spec").onclick=()=>tog("b-spec","b-view",()=>st.classList.add("showspec"));
+go("home");
+</script>
+</body>
+</html>
