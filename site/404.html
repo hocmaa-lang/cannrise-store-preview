@@ -623,6 +623,62 @@ p{margin:0 0 1em}
 
 
 .faq-search svg,.sbox svg{width:26px;height:26px;flex:0 0 auto}
+
+/* ---------- real footage cards (2 real clips, vertical 9:16) ---------- */
+.rf{position:relative;aspect-ratio:9/16;border-radius:var(--r-md);overflow:hidden;background:var(--canopy-3) linear-gradient(160deg,var(--canopy-2),var(--canopy-3));isolation:isolate;box-shadow:0 1px 0 rgba(248,243,230,.08) inset,0 24px 48px -24px rgba(18,48,31,.55);margin:0}
+.rf video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;background:transparent}
+.rf-tag{position:absolute;left:12px;top:12px;z-index:2;display:flex;gap:8px;align-items:center;background:var(--bone);color:var(--ink);font:600 11px/14px var(--f-t);letter-spacing:.06em;padding:7px 10px;border-radius:var(--r-sm);pointer-events:none;max-width:calc(100% - 24px)}
+.rf-tag i{width:7px;height:7px;border-radius:50%;background:var(--growth);flex:0 0 auto;animation:pulse 2s infinite}
+.rf-snd,.rf-play{position:absolute;z-index:3;border:0;display:grid;place-items:center;cursor:pointer;transition:opacity .3s,transform .4s var(--ease),background .25s}
+.rf-snd{right:12px;bottom:12px;width:44px;height:44px;border-radius:50%;background:rgba(248,243,230,.92);color:var(--canopy)}
+.rf-snd:hover{background:var(--bone);transform:scale(1.06)}
+.rf-snd .i-on,.rf-snd[aria-pressed=true] .i-off{display:none}
+.rf-snd[aria-pressed=true] .i-on{display:block}
+.rf-snd[aria-pressed=true]{background:var(--growth)}
+.rf-play{left:50%;top:50%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;background:var(--growth);color:var(--canopy);opacity:0;transform:scale(.85);box-shadow:0 10px 30px -10px rgba(18,48,31,.6)}
+.rf-play .i-pause{display:none}
+.rf:not(.paused) .rf-play .i-play{display:none}
+.rf:not(.paused) .rf-play .i-pause{display:block}
+.rf.paused .rf-play,.rf-play:focus-visible{opacity:1;transform:none}
+.rf:not(.paused) .rf-play:focus-visible{background:rgba(248,243,230,.92)}
+.rf-play:hover{transform:scale(1.05)}
+.rf.paused video{filter:saturate(.9)}
+/* card on a blurred copy of its own poster (story frame, PDP gallery) */
+.rf-wrap{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;background:var(--canopy-3)}
+.rf-wrap .rf-bg{position:absolute;inset:-48px;width:calc(100% + 96px);height:calc(100% + 96px);max-width:none;object-fit:cover;filter:blur(30px) saturate(1.15) brightness(.5);transform:scale(1.08)}
+.rf-wrap .rf{height:min(84%,760px);width:auto;max-width:86%}
+.story-media .frame.vid .rf-wrap .rf{height:min(76%,720px);margin-top:4%}
+.story-media .frame.vid .tag{bottom:auto;top:var(--s6)}
+.story-media .frame.vid .rf-bg{width:calc(100% + 96px);height:calc(100% + 96px)}
+.chapter .mob-img.rfm{aspect-ratio:auto;background:none;overflow:visible;border-radius:0}
+.chapter .mob-img.rfm .rf{width:min(100%,46svh);margin-inline:auto}
+.story.flat .chapter .mob-img.rfm{aspect-ratio:auto;align-self:center}
+.story.flat .chapter .mob-img.rfm .rf{width:min(100%,62vh)}
+/* PDP gallery */
+.stage .rf-wrap{transition:opacity .45s var(--ease);cursor:default}
+.stage .rf-wrap .rf{height:92%}
+.thumbs .tv{position:relative;background:var(--canopy)}
+.thumbs .tv img{object-fit:cover}
+.thumbs .tv::after{content:"";position:absolute;inset:0;margin:auto;width:28px;height:28px;border-radius:50%;background:var(--growth) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 6.5v11l8.5-5.5z' fill='%231B4332'/%3E%3C/svg%3E") center/18px no-repeat;box-shadow:0 4px 12px -4px rgba(0,0,0,.4)}
+/* How it works: a 4th, vertical column */
+.steps.has-rf{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.86fr);align-items:start}
+.rf-step .rf{width:100%}
+.rf-step figcaption .eyebrow{margin-bottom:6px}
+/* collection grid tile */
+.rf-tile{position:relative;margin:0;border-radius:var(--r-md);overflow:hidden;min-height:100%;aspect-ratio:9/14;background:var(--canopy-3);animation:cardin .6s var(--ease) both}
+.rf-tile .rf{position:absolute;inset:0;aspect-ratio:auto;border-radius:0;box-shadow:none}
+.rf-tile figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:48px 72px 16px 16px;background:linear-gradient(transparent,rgba(18,48,31,.88));color:var(--bone);pointer-events:none;display:grid;gap:4px}
+.rf-tile figcaption .eyebrow{color:var(--sand)}
+.rf-tile figcaption b{font:500 22px/1.15 var(--f-d)}
+@media (max-width:1100px){.steps.has-rf{grid-template-columns:repeat(2,minmax(0,1fr))}.rf-step .rf{width:min(100%,46svh)}}
+@media (max-width:900px){.steps.has-rf{grid-template-columns:1fr}.rf-step .rf{width:min(100%,46svh);margin-inline:auto}.stage .rf-wrap .rf{height:94%}}
+@media (max-width:640px){.rf-tile{grid-column:1/-1;aspect-ratio:9/16;max-height:82svh;min-height:0}.rf-tile .rf video{object-position:50% 40%}}
+@media (prefers-reduced-motion:reduce){.rf-tag i{animation:none}}
+.stage.on-vid .hint{display:none}
+.rf{container-type:inline-size}
+.rf-tag{white-space:nowrap}
+@container (max-width:250px){.rf-tag{font-size:10px;letter-spacing:.02em;padding:6px 8px;gap:6px;left:8px;top:8px}}
+.rf-tile .rf{isolation:auto}
 </style></head><body>
 <main id="main" class="e404 dark grain"><div style="position:relative;z-index:2;padding:40px 20px"><p class="eyebrow">404 · nothing planted here</p><div class="big" aria-hidden="true">404</div><h1 class="d-l">This page didn't <em>come up.</em></h1><p class="lead" style="margin:16px auto 28px">The link may be old, or the page moved. The garden is still where you left it.</p>
 <p><a class="btn accent" id="home" href="index.html">Back to the home page</a> <a class="btn quiet" href="javascript:history.back()">Go back</a></p></div><div class="sun" style="position:absolute;left:50%;bottom:-2px;width:min(90vw,820px);transform:translateX(-50%);color:#24503d;z-index:1" aria-hidden="true"><svg viewBox="85 80 1527 988" focusable="false"><path class="ray" fill="currentColor" d="M1611 799L1604 792L1297 822L1292 826L1290 835L1299 843L1602 843L1611 835Z"/><path class="ray" fill="currentColor" d="M85 799L85 836L94 843L397 843L406 835L404 826L398 822L92 792Z"/><path class="ray" fill="currentColor" d="M1561 567L1556 562L1542 564L1268 685L1265 697L1272 718L1278 723L1286 723L1582 658L1586 654L1587 646Z"/><path class="ray" fill="currentColor" d="M135 567L109 647L114 658L410 723L418 723L424 718L431 697L428 685L152 563L140 562Z"/><path class="ray" fill="currentColor" d="M1438 358L1431 357L1423 362L1199 563L1198 572L1214 594L1227 594L1490 439L1490 428Z"/><path class="ray" fill="currentColor" d="M258 358L207 426L206 439L469 594L482 594L498 572L497 563L273 362L265 357Z"/><path class="ray" fill="currentColor" d="M1263 201L1254 200L1248 205L1097 464L1097 477L1115 491L1126 493L1137 483L1332 264L1333 253Z"/><path class="ray" fill="currentColor" d="M435 200L363 253L362 260L568 492L577 493L599 477L600 466L448 205L442 200Z"/><path class="ray" fill="currentColor" d="M1044 104L1034 107L968 404L968 413L973 419L994 426L1003 425L1010 415L1129 144L1129 135L1124 130Z"/><path class="ray" fill="currentColor" d="M652 104L572 130L567 135L567 144L687 417L693 425L702 426L723 419L728 413L728 404L664 110L661 106Z"/><path class="ray" fill="currentColor" d="M804 80L797 87L827 392L835 401L861 401L867 397L870 384L899 87L892 80Z"/><path fill="currentColor" fill-rule="evenodd" d="M456 833L456 842L457 843L1239 843L1240 842L1238 802L1237 801L1237 793L1236 792L1236 786L1235 785L1233 768L1232 767L1232 763L1230 758L1230 754L1229 753L1227 742L1225 738L1223 728L1222 727L1222 725L1220 721L1220 718L1218 715L1216 707L1214 704L1214 702L1212 699L1210 692L1207 687L1207 685L1200 672L1200 670L1198 668L1198 666L1196 664L1196 662L1193 658L1191 653L1189 651L1187 646L1184 643L1183 639L1158 603L1145 588L1145 587L1134 576L1134 575L1104 546L1103 546L1092 536L1076 524L1072 522L1069 519L1060 514L1055 510L1052 509L1050 507L1047 506L1045 504L1042 503L1040 501L1006 484L1004 484L999 481L997 481L984 475L982 475L960 467L957 467L953 465L950 465L949 464L946 464L945 463L942 463L941 462L938 462L933 460L924 459L919 457L899 455L898 454L879 453L878 452L861 452L860 451L818 452L817 453L807 453L806 454L798 454L797 455L784 456L783 457L778 457L777 458L773 458L772 459L768 459L767 460L762 460L758 462L743 465L739 467L736 467L735 468L712 475L709 477L707 477L704 479L697 481L692 484L690 484L679 490L677 490L646 507L642 511L638 512L620 524L604 536L586 552L585 552L559 578L559 579L546 593L546 594L529 615L515 636L507 651L502 658L502 660L496 670L496 672L489 685L489 687L486 692L486 694L482 702L481 707L479 710L479 712L473 728L471 738L469 742L467 753L466 754L466 758L465 759L464 767L463 768L463 773L462 774L462 779L461 780L461 785L460 786L460 792L459 793L458 812L457 813L457 832ZM500 781L501 780L501 776L502 775L502 771L503 770L503 766L504 765L507 750L509 746L509 743L510 742L516 722L518 719L519 714L524 704L524 702L528 695L528 693L544 663L548 658L549 655L559 640L571 624L590 603L590 602L608 584L609 584L617 576L618 576L634 562L663 542L668 540L673 536L680 533L682 531L709 518L711 518L714 516L721 514L723 512L726 512L741 506L744 506L751 503L754 503L755 502L758 502L762 500L770 499L775 497L779 497L780 496L784 496L785 495L790 495L791 494L796 494L797 493L804 493L805 492L825 491L826 490L870 490L871 491L882 491L883 492L899 493L900 494L905 494L906 495L911 495L912 496L921 497L926 499L930 499L941 503L945 503L952 506L955 506L956 507L961 508L964 510L972 512L985 518L987 518L1014 531L1016 533L1023 536L1025 538L1033 542L1062 562L1078 576L1079 576L1087 584L1088 584L1106 602L1106 603L1115 612L1115 613L1125 624L1147 655L1148 658L1156 670L1159 677L1161 679L1172 702L1172 704L1175 709L1175 711L1177 714L1178 719L1180 722L1180 724L1184 734L1184 737L1187 743L1187 746L1189 750L1189 753L1190 754L1190 757L1191 758L1191 761L1193 766L1195 780L1196 781L1196 793L1194 795L1184 795L1178 792L1176 790L1164 784L1157 779L1148 775L1146 773L1141 771L1139 769L1134 767L1125 761L1118 758L1113 754L1104 750L1102 748L1088 741L1086 739L1081 737L1079 735L1074 733L1065 727L1058 724L1056 722L1051 720L1049 718L1044 716L1035 710L1028 707L1026 705L1021 703L1019 701L1014 699L1005 693L998 690L996 688L991 686L989 684L984 682L975 676L968 673L966 671L961 669L952 663L936 655L934 655L929 652L927 652L921 649L919 649L909 645L906 645L902 643L898 643L897 642L889 641L888 640L883 640L882 639L876 639L875 638L866 638L865 637L831 637L830 638L814 639L813 640L808 640L807 641L803 641L802 642L787 645L786 646L775 649L772 651L767 652L744 663L742 665L737 667L728 673L721 676L719 678L714 680L712 682L707 684L698 690L691 693L689 695L684 697L682 699L677 701L668 707L661 710L659 712L654 714L652 716L647 718L638 724L631 727L629 729L624 731L622 733L601 744L599 746L594 748L587 753L585 753L578 758L564 765L559 769L557 769L548 775L541 778L536 782L532 783L530 785L512 795L502 795L500 793Z"/><path fill="currentColor" d="M85 1039L85 1057L94 1067L1602 1067L1611 1057L1611 1039L1602 1029L1526 1028L94 1029Z"/><path fill="currentColor" d="M85 936L85 955L91 963L97 965L1599 965L1605 963L1611 955L1611 936L1600 926L96 926Z"/></svg></div></main>

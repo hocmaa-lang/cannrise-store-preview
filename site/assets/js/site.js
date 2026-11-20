@@ -8,6 +8,35 @@ const $ = (s, el = D) => el.querySelector(s), $$ = (s, el = D) => [...el.querySe
 const money = n => '$' + (Math.round(n * 100) / 100).toFixed(2);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 const IM = CR.img || {};
+/* ---------- real-footage cards: autoplay muted only while in view, pause off-screen, sound toggle, reduced-motion = poster + play ---------- */
+const RF_STILL = RM || !!(navigator.connection && navigator.connection.saveData);
+const rfCards = $$('[data-rf]');
+const rfVid = c => c.querySelector('video');
+const rfActive = c => c.isConnected && !c.closest('.frame:not(.on), [inert], [hidden]');
+const rfLoad = c => { const v = rfVid(c); if (!v.getAttribute('poster')) v.poster = v.dataset.poster; };
+const rfSrc = c => { const v = rfVid(c); rfLoad(c); if (v.dataset.ok) return; if (!v.dataset.snd) { v.querySelectorAll('source').forEach(s => s.src = s.dataset.src); v.load(); } v.dataset.ok = 1; };
+const rfPlay = c => { rfSrc(c); const p = rfVid(c).play(); p && p.catch(() => c.classList.add('paused')); };
+function rfSync() { rfCards.forEach(c => { const v = rfVid(c); if (c._near) rfLoad(c); const want = c._vis && rfActive(c) && !c._user && (!RF_STILL || c._go); if (want && v.paused) rfPlay(c); else if (!want && !v.paused) v.pause(); }); }
+const rfNear = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target._near = 1; rfLoad(e.target); } }), {rootMargin: '600px 0px'});
+const rfSeen = new IntersectionObserver(es => { es.forEach(e => { e.target._vis = e.isIntersecting; }); rfSync(); }, {threshold: .35});
+rfCards.forEach(c => {
+  const v = rfVid(c), pb = c.querySelector('.rf-play'), sb = c.querySelector('.rf-snd'), lbl = pb.getAttribute('aria-label').replace(/^Play video: /, '');
+  const state = () => { const pa = v.paused; c.classList.toggle('paused', pa && !!(RF_STILL || c._user || v.dataset.ok)); pb.setAttribute('aria-label', (pa ? 'Play video: ' : 'Pause video: ') + lbl); };
+  v.addEventListener('play', state); v.addEventListener('pause', state); state();
+  const toggle = () => { if (v.paused) { c._user = 0; c._go = 1; rfPlay(c); } else { c._user = 1; v.pause(); } };
+  pb.addEventListener('click', e => { e.stopPropagation(); toggle(); });
+  v.addEventListener('click', e => { e.stopPropagation(); toggle(); });
+  sb.addEventListener('click', e => {
+    e.stopPropagation(); const on = v.muted;
+    if (on) {
+      rfCards.forEach(o => { if (o !== c) { rfVid(o).muted = true; const b = o.querySelector('.rf-snd'); b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', 'Turn sound on'); } });
+      if (!v.dataset.snd) { const t = v.currentTime; v.dataset.snd = 1; v.dataset.ok = 1; v.poster = v.dataset.poster; v.src = v.dataset.sound; v.addEventListener('loadedmetadata', () => { try { v.currentTime = t; } catch (_) {} }, {once: true}); }
+      v.muted = false; c._user = 0; c._go = 1; rfPlay(c);
+    } else v.muted = true;
+    sb.setAttribute('aria-pressed', String(on)); sb.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
+  });
+  rfNear.observe(c); rfSeen.observe(c);
+});
 const src = (id, want = 960) => { const m = IM[id]; if (!m) return ''; const w = m.w.find(x => x >= want) || m.w[m.w.length - 1]; return `${R}assets/img/${id}-${w}.webp`; };
 const srcset = id => { const m = IM[id]; return m ? m.w.map(w => `${R}assets/img/${id}-${w}.webp ${w}w`).join(', ') : ''; };
 const VAR = {}; const PROD = {};
@@ -143,7 +172,7 @@ addEventListener('load', () => { if (RM || saveData || innerWidth < 900) return;
 const story = $('.story');
 if (story) {
   const frames = $$('.story-media .frame', story), chs = $$('.chapter', story), bg = story.closest('.ch-bg');
-  const so = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const i = chs.indexOf(e.target); frames.forEach((f, j) => f.classList.toggle('on', i === j)); if (bg) bg.style.backgroundColor = e.target.dataset.bg; }), {rootMargin: '-45% 0px -45% 0px'});
+  const so = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const i = chs.indexOf(e.target); frames.forEach((f, j) => { f.classList.toggle('on', i === j); f.inert = i !== j; }); rfSync(); if (bg) bg.style.backgroundColor = e.target.dataset.bg; }), {rootMargin: '-45% 0px -45% 0px'});
   chs.forEach(c => so.observe(c));
 }
 /* ---------- tabs: problem explorer ---------- */
@@ -213,15 +242,15 @@ const pdp = $('[data-pdp]');
 if (pdp) {
   const p = PROD[pdp.dataset.pdp]; const qv = new URLSearchParams(location.search).get('v');
   let v = VAR[qv] && VAR[qv].p === p ? VAR[qv] : p.variants[0];
-  const stage = $('.stage', pdp), thumbs = $$('.thumbs button', pdp), imgs = $$('.stage img', pdp);
+  const stage = $('.stage', pdp), thumbs = $$('.thumbs button', pdp), imgs = $$('.stage > img, .stage > .rf-wrap', pdp);
   let gi = 0;
-  const show = i => { gi = (i + imgs.length) % imgs.length; const t = imgs[gi]; if (t.dataset.src) { t.srcset = t.dataset.srcset; t.src = t.dataset.src; t.removeAttribute('data-src'); } imgs.forEach((im, j) => { im.classList.toggle('cur', j === gi); im.style.opacity = j === gi ? 1 : 0; im.setAttribute('aria-hidden', j !== gi); }); thumbs.forEach((t, j) => t.setAttribute('aria-current', j === gi)); stage.classList.remove('zoom'); };
+  const show = i => { gi = (i + imgs.length) % imgs.length; const t = imgs[gi]; if (t.dataset.src) { t.srcset = t.dataset.srcset; t.src = t.dataset.src; t.removeAttribute('data-src'); } imgs.forEach((im, j) => { im.classList.toggle('cur', j === gi); im.style.opacity = j === gi ? 1 : 0; im.setAttribute('aria-hidden', j !== gi); im.inert = j !== gi; }); stage.classList.toggle('on-vid', imgs[gi].classList.contains('rf-wrap')); rfSync(); thumbs.forEach((t, j) => t.setAttribute('aria-current', j === gi)); stage.classList.remove('zoom'); };
   thumbs.forEach((t, j) => t.addEventListener('click', () => show(j)));
   $('.nav-a.p', pdp)?.addEventListener('click', e => { e.stopPropagation(); show(gi - 1); });
   $('.nav-a.n', pdp)?.addEventListener('click', e => { e.stopPropagation(); show(gi + 1); });
-  stage.addEventListener('click', e => { if (e.target.closest('.nav-a')) return; stage.classList.toggle('zoom'); move(e); });
+  stage.addEventListener('click', e => { if (e.target.closest('.nav-a, .rf-wrap')) return; stage.classList.toggle('zoom'); move(e); });
   const move = e => { const r = stage.getBoundingClientRect(); stage.style.setProperty('--zx', ((e.clientX - r.left) / r.width * 100) + '%'); stage.style.setProperty('--zy', ((e.clientY - r.top) / r.height * 100) + '%'); };
-  stage.addEventListener('mousemove', move); stage.addEventListener('mouseleave', () => stage.classList.remove('zoom'));
+  stage.addEventListener('mousemove', e => { if (!stage.classList.contains('on-vid')) move(e); }); stage.addEventListener('mouseleave', () => stage.classList.remove('zoom'));
   stage.addEventListener('keydown', e => { if (e.key === 'ArrowRight') show(gi + 1); if (e.key === 'ArrowLeft') show(gi - 1); });
   let tx = null; stage.addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive: true}); stage.addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) show(gi + (dx < 0 ? 1 : -1)); tx = null; });
   const pp = $('[data-pp]', pdp), atcs = $$('[data-add-main]'), per = $('[data-per]', pdp), sa = $('.sticky-atc'), qin = $('.atc .qty input', pdp);
@@ -244,7 +273,7 @@ if (pdp) {
 /* ---------- collection filters ---------- */
 const shop = $('[data-shop]');
 if (shop) {
-  const grid = $('.pgrid', shop), cnt = $('[data-count-out]'), sortSel = $('[data-sort]'), pmax = $('[data-pmax]'), pmaxOut = $('[data-pmax-out]');
+  const rfTile = $('[data-rf-tile-src] > *', shop), grid = $('.pgrid', shop), cnt = $('[data-count-out]'), sortSel = $('[data-sort]'), pmax = $('[data-pmax]'), pmaxOut = $('[data-pmax-out]');
   const base = shop.dataset.shop === 'all' ? CR.products : CR.products.filter(p => p.collections.includes(shop.dataset.shop));
   const items = []; base.forEach(p => { const seen = new Set(); p.variants.forEach(v => { items.push({p, v}); }); });
   const st = {line: new Set(), need: new Set(), space: new Set(), pack: new Set(), max: +(pmax?.max || 999), view: 'grid'};
@@ -260,6 +289,7 @@ if (shop) {
     const s = sortSel?.value || 'featured';
     if (s === 'price-asc') r.sort((a, b) => a.v.price - b.v.price); else if (s === 'price-desc') r.sort((a, b) => b.v.price - a.v.price); else if (s === 'name') r.sort((a, b) => (a.p.short + a.v.title).localeCompare(b.p.short + b.v.title)); else if (s === 'save') r.sort((a, b) => ((b.v.compare || b.v.price) - b.v.price) / (b.v.compare || 1) - ((a.v.compare || a.v.price) - a.v.price) / (a.v.compare || 1));
     grid.innerHTML = r.length ? r.map(({p, v}, i) => cardHTML(p, v).replace('<article class="pcard"', `<article style="animation-delay:${Math.min(i, 12) * 40}ms" class="pcard"`)).join('') : `<div class="empty" style="grid-column:1/-1"><p class="h" style="font-family:var(--f-d)">Nothing matches those filters.</p><button class="btn quiet mt1" type="button" data-fclear-in>Clear filters</button></div>`;
+    if (rfTile && r.length) { grid.appendChild(rfTile); rfSync(); }
     $('[data-fclear-in]', grid)?.addEventListener('click', () => $('[data-fclear]').click());
     cnt && (cnt.textContent = `${r.length} item${r.length === 1 ? '' : 's'}`);
     $$('[data-fc]', shop).forEach(el => { const [k, val] = el.dataset.fc.split(':'); el.textContent = items.filter(({p, v}) => k === 'line' ? p.line === val : k === 'need' ? p.needs.includes(val) : k === 'space' ? p.spaces.includes(val) : v.packKey === val).length; });
