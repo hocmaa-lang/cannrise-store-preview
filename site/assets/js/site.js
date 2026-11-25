@@ -72,10 +72,16 @@ const Cart = {
     const was = ls.reduce((s, l) => s + (l.V.compare || l.V.price) * l.q, 0);
     const n = ls.reduce((s, l) => s + l.q, 0);
     const coco = ls.filter(l => l.V.p.line === 'coco').reduce((s, l) => s + l.q, 0);
-    const gift = giftLive() && coco >= 3; const ship = sub === 0 ? 0 : sub >= CR.ship.free ? 0 : CR.ship.flat;
-    return {ls, sub, was, n, coco, gift, ship, total: sub + ship};
+    const gift = giftLive() && coco >= 3;
+    // Black Friday tiers (2/3/4+ packs -> 10/20/25%), coco and spacers counted separately; free shipping on 4+ coco packs or $99+ after discounts
+    const grp = {coco: 0, risers: 0}, gsub = {coco: 0, risers: 0}; ls.forEach(l => { const k = l.V.p.line; if (k in grp) { grp[k] += l.q; gsub[k] += l.V.price * l.q; } });
+    const disc = tiersLive() ? Object.keys(grp).reduce((s, k) => s + Math.round(gsub[k] * tierPct(grp[k])) / 100, 0) : 0;
+    const net = sub - disc; const free = sub > 0 && (net >= CR.ship.free || coco >= (CR.ship.cocoPacks || 4)); const ship = sub === 0 ? 0 : free ? 0 : CR.ship.flat;
+    return {ls, sub, was, n, coco, gift, ship, free, disc, net, grp, total: net + ship};
   }
 };
+const tierPct = n => n >= 4 ? 25 : n >= 3 ? 20 : n >= 2 ? 10 : 0;
+const tiersLive = () => CR.tiers && Date.now() < Date.parse(CR.tiers.ends);
 const giftHTML = (t) => {
   if (!giftLive()) return '';
   if (t.gift) return `<div class="gift ok" role="status"><span aria-hidden="true">✓</span><span><b>Free gift unlocked.</b> A 70-pack of Anchor Plant Ties (8 cm) is added free with your 3 packs of coco grow bags. Offer ends ${GIFT.label}.</span></div>`;
@@ -92,9 +98,11 @@ function render() {
       `<div class="empty"><p class="h" style="font-family:var(--f-d)">Your cart is empty.</p><p class="muted">Lift, hold, grow. Start with the piece your garden needs most.</p><a class="btn mt1" href="${R}collections/all.html">Shop all gear</a></div>`;
   });
   $$('[data-cart-gift]').forEach(b => b.innerHTML = t.ls.length ? giftHTML(t) : '');
-  const need = Math.max(0, CR.ship.free - t.sub);
-  $$('[data-cart-ship]').forEach(b => b.innerHTML = t.ls.length ? `<div class="ship">${need > 0 ? `You're <b>${money(need)}</b> away from free shipping.` : '<b>Free shipping</b> unlocked (continental US).'}<div class="bar"><i style="width:${Math.min(100, t.sub / CR.ship.free * 100)}%"></i></div></div>` : '');
-  $$('[data-cart-totals]').forEach(b => b.innerHTML = `<div><span>Subtotal (${t.n} item${t.n === 1 ? '' : 's'})</span><span>${money(t.sub)}</span></div>${t.was > t.sub ? `<div class="muted"><span>You save vs. list price</span><span>−${money(t.was - t.sub)}</span></div>` : ''}<div><span>Shipping</span><span>${t.sub ? (t.ship ? money(t.ship) : 'Free') : '—'}</span></div>${t.gift ? '<div><span>Gift: 70-pack plant ties</span><span>$0.00</span></div>' : ''}<div class="grand"><span>Total (USD)</span><span>${money(t.total)}</span></div><p class="small muted" style="margin:4px 0 0">Taxes calculated at checkout. Alaska, Hawaii and PO Boxes: shipping calculated at checkout.</p>`);
+  const need = Math.max(0, CR.ship.free - t.net), left = Math.max(0, (CR.ship.cocoPacks || 4) - t.coco);
+  const shipMsg = t.free ? '✓ This order ships <b>FREE</b>' : t.coco ? `Add <b>${left} more coco pack${left > 1 ? 's' : ''}</b>: 25% off + free shipping <span class="muted">(or spend ${money(need)} more)</span>` : `You're <b>${money(need)}</b> away from free shipping.`;
+  const shipPct = t.free ? 100 : Math.min(100, Math.max(t.net / CR.ship.free * 100, t.coco / (CR.ship.cocoPacks || 4) * 100));
+  $$('[data-cart-ship]').forEach(b => b.innerHTML = t.ls.length ? `<div class="ship">${shipMsg}<div class="bar"><i style="width:${shipPct}%"></i></div></div>` : '');
+  $$('[data-cart-totals]').forEach(b => b.innerHTML = `<div><span>Subtotal (${t.n} item${t.n === 1 ? '' : 's'})</span><span>${money(t.sub)}</span></div>${t.was > t.sub ? `<div class="muted"><span>You save vs. list price</span><span>−${money(t.was - t.sub)}</span></div>` : ''}${t.disc ? `<div><span>Black Friday tiers</span><span>−${money(t.disc)}</span></div>` : ''}<div><span>Shipping</span><span>${t.sub ? (t.ship ? money(t.ship) : 'Free') : '—'}</span></div>${t.gift ? '<div><span>Gift: 70-pack plant ties</span><span>$0.00</span></div>' : ''}<div class="grand"><span>Total (USD)</span><span>${money(t.total)}</span></div>${t.sub && !t.free ? `<p class="small" style="margin:6px 0 0;padding:8px 10px;border:1.5px solid var(--canopy);border-radius:10px;background:#FFF8E6">Free US shipping on 4+ coco packs or any order $99+. Otherwise, a flat $5.99.</p>` : ''}<p class="small muted" style="margin:4px 0 0">Taxes calculated at checkout.</p>`);
   $$('[data-checkout]').forEach(b => b.disabled = !t.ls.length);
 }
 D.addEventListener('click', e => {
@@ -261,7 +269,7 @@ if (pdp) {
   $('.atc .qty', pdp)?.addEventListener('click', e => { const b = e.target.closest('[data-qq]'); if (!b) return; qin.value = Math.max(1, Math.min(99, (+qin.value || 1) + (+b.dataset.qq))); atcs.forEach(a => a.dataset.qty = qin.value); });
   qin?.addEventListener('change', () => { qin.value = Math.max(1, Math.min(99, parseInt(qin.value) || 1)); atcs.forEach(a => a.dataset.qty = qin.value); });
   const mainBtn = $('.atc [data-add-main]', pdp);
-  if (sa && mainBtn) new IntersectionObserver(es => { const r = es[0]; sa.classList.toggle('on', !r.isIntersecting && r.boundingClientRect.top < 0); }).observe(mainBtn);
+  if (sa && mainBtn) new IntersectionObserver(es => { const r = es[0]; sa.classList.toggle('on', !r.isIntersecting && (r.boundingClientRect.top < 0 || innerWidth < 750)); }).observe(mainBtn);
   D.addEventListener('click', e => { if (e.target.closest('[data-sg]')) { e.preventDefault(); const d = $('#sizeguide'); d && open(d); } });
   // bundle
   const bun = $('[data-bundle]');
