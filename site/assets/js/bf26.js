@@ -21,7 +21,7 @@
     '.bf26 .card.best{background:#A5B83C;box-shadow:0 0 0 3px #EDC97E}' +
     '.bf26 .pct{font-family:Fraunces,Georgia,serif;font-size:clamp(28px,7vw,42px);font-weight:600;line-height:1}' +
     '.bf26 .off{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}' +
-    '.bf26 .qty{font-size:14px;font-weight:600;margin-top:4px}' +
+    '.bf26 .bfq{font-size:14px;font-weight:600;margin-top:4px}' +
     '.bf26 .fs{font-size:11px;font-weight:700;margin-top:4px;background:#1B4332;color:#F8F3E6;border-radius:999px;padding:2px 8px;white-space:nowrap}' +
     '.bf26 .cd{display:flex;justify-content:center;gap:8px;margin:0 auto 18px;flex-wrap:nowrap}' +
     '.bf26 .cd span{display:flex;flex-direction:column;align-items:center;min-width:58px;padding:8px 4px;border-radius:12px;background:rgba(248,243,230,.1);border:1px solid rgba(248,243,230,.2)}' +
@@ -50,9 +50,9 @@
     s.innerHTML = '<div class="in"><p class="eb">Black Friday · ends Dec 1</p><h2>Buy more. Grow more.</h2>' +
       '<p class="sub">Coco coir grow bags. Mix 1 and 2 gallon packs. The discount applies automatically at checkout.</p>' +
       '<div class="cards">' +
-        '<a class="card" href="' + COCO + '"><span class="pct">10%</span><span class="off">off</span><span class="qty">2 packs</span></a>' +
-        '<a class="card" href="' + COCO + '"><span class="pct">20%</span><span class="off">off</span><span class="qty">3 packs</span></a>' +
-        '<a class="card best" href="' + COCO + '"><span class="pct">25%</span><span class="off">off</span><span class="qty">4+ packs</span><span class="fs">+ FREE shipping</span></a>' +
+        '<a class="card" href="' + COCO + '"><span class="pct">10%</span><span class="off">off</span><span class="bfq">2 packs</span></a>' +
+        '<a class="card" href="' + COCO + '"><span class="pct">20%</span><span class="off">off</span><span class="bfq">3 packs</span></a>' +
+        '<a class="card best" href="' + COCO + '"><span class="pct">25%</span><span class="off">off</span><span class="bfq">4+ packs</span><span class="fs">+ FREE shipping</span></a>' +
       '</div>' +
       '<div class="cd" aria-label="Time left"><span><b data-d>00</b><small>Days</small></span><span><b data-h>00</b><small>Hrs</small></span><span><b data-m>00</b><small>Min</small></span><span><b data-s>00</b><small>Sec</small></span></div>' +
       '<a class="go" href="' + COCO + '">Shop the deal</a><p class="rule">' + SHIP + '</p></div>';

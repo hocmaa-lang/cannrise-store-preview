@@ -75,7 +75,7 @@ const Cart = {
     const gift = giftLive() && coco >= 3;
     // Black Friday tiers (2/3/4+ packs -> 10/20/25%), coco and spacers counted separately; free shipping on 4+ coco packs or $99+ after discounts
     const grp = {coco: 0, risers: 0}, gsub = {coco: 0, risers: 0}; ls.forEach(l => { const k = l.V.p.line; if (k in grp) { grp[k] += l.q; gsub[k] += l.V.price * l.q; } });
-    const disc = tiersLive() ? Object.keys(grp).reduce((s, k) => s + Math.round(gsub[k] * tierPct(grp[k])) / 100, 0) : 0;
+    const disc = tiersLive() ? ls.reduce((s, l) => { const k = l.V.p.line; return k in grp ? s + Math.floor(l.V.price * tierPct(grp[k])) / 100 * l.q : s; }, 0) : 0; // per-unit, rounded down like Shopify
     const net = sub - disc; const free = sub > 0 && (net >= CR.ship.free || coco >= (CR.ship.cocoPacks || 4)); const ship = sub === 0 ? 0 : free ? 0 : CR.ship.flat;
     return {ls, sub, was, n, coco, gift, ship, free, disc, net, grp, total: net + ship};
   }
