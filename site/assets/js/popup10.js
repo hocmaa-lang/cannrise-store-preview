@@ -83,7 +83,7 @@
       headers: { 'content-type': 'application/json', revision: '2024-10-15' },
       body: JSON.stringify({ data: { type: 'subscription', attributes: {
         custom_source: 'Website popup 10% (GROW10)',
-        profile: { data: { type: 'profile', attributes: { email: email, subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } } } } }
+        profile: { data: { type: 'profile', attributes: { email: email } } }
       }, relationships: { list: { data: { type: 'list', id: LIST } } } } })
     }).then(function (r) {
       if (r.status >= 200 && r.status < 300) { set(KEY + '_done', '1'); ov.querySelector('.crp').classList.add('done'); }
